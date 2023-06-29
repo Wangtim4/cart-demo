@@ -5,6 +5,8 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
+// 驗證是否有帶token
+use Illuminate\Auth\AuthenticationException;
 class Handler extends ExceptionHandler
 {
     /**
@@ -38,4 +40,9 @@ class Handler extends ExceptionHandler
             //
         });
     }
+    // 如果沒有token
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return response("授權失敗" , 401);
+    } 
 }
